@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Укажите путь к css файлу -->
+    <link
+      rel="shortcut icon"
+      href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Icons8_flat_todo_list.svg/1200px-Icons8_flat_todo_list.svg.png"
+    />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="paper">
+        <h1>Что сегодня бро?</h1>
+        <div class="add-block">
+          <input class="input" id="inp" />
+          <button class="add" id="btn">Add new task</button>
+        </div>
+
+        <h2>Ваши задачи:</h2>
+        <div class="tasks">
+          <div class="task">
+            <div>Выйти погулять с собакой</div>
+
+            <div class="btns">
+              <input class="checkbox" type="checkbox" />
+              <img
+                class="delete-btn"
+                src="https://img.icons8.com/office/16/000000/delete-sign.png"
+              />
+            </div>
+          </div>
+
+          <div class="task task-completed">
+            <div>Выйти погулять с собакой</div>
+
+            <div class="btns">
+              <input class="checkbox" type="checkbox" checked />
+              <img
+                class="delete-btn"
+                src="https://img.icons8.com/office/16/000000/delete-sign.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/todo.js"></script>
+  </body>
+</html>
