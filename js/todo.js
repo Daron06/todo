@@ -11,11 +11,7 @@ addTaskBtn.addEventListener('click', () => {
     checked: false,
   };
 
-<<<<<<< HEAD
   if (inpText.value === '') {
-=======
-  if (inpText.value == '') {
->>>>>>> main
     return;
   }
 
