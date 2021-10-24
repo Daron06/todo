@@ -11,6 +11,10 @@ addTaskBtn.addEventListener('click', () => {
     checked: false,
   };
 
+  if (inpText.value == '') {
+    return;
+  }
+
   tasks.push(task);
   showTasks();
 });
