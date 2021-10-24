@@ -63,8 +63,10 @@ function showTasks() {
 
 tasksWrapper.addEventListener('click', (e) => {
   if (e.target.type === 'checkbox') {
-    let task = { ...tasks[e.target.id - 1], completed: !tasks[e.target.id - 1].completed };
-    console.log(task);
+    let task = {
+      ...tasks.find((element) => element.id === e.target.id),
+      completed: !tasks.find((element) => element.id === e.target.id).completed,
+    };
     fetch(`https://617563c608834f0017c70bcb.mockapi.io/api/todo/tasks/${e.target.id}`, {
       method: 'PUT',
       headers: {
