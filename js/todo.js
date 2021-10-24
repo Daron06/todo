@@ -2,54 +2,84 @@ let addTaskBtn = document.querySelector('#btn');
 let inpText = document.querySelector('#inp');
 let tasksWrapper = document.querySelector('.tasks');
 
-let tasks = localStorage.tasks ? JSON.parse(localStorage.getItem('tasks')) : [];
+// fetch('https://617563c608834f0017c70bcb.mockapi.io/api/todo/tasks')
+//   .then((response) => response.json())
+//   .then((commits) => console.log(commits));
+
+let tasks = [];
 showTasks();
 
 addTaskBtn.addEventListener('click', () => {
   let task = {
     text: inpText.value,
-    checked: false,
+    completed: false,
   };
 
   if (inpText.value === '') {
     return;
   }
 
-  tasks.push(task);
-  showTasks();
+  fetch('https://617563c608834f0017c70bcb.mockapi.io/api/todo/tasks', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(task),
+  }).then(() => showTasks());
 });
 
 function showTasks() {
   tasksWrapper.innerHTML = '';
-  if (tasks.length === 0) {
-    tasksWrapper.innerHTML = `<p>Ваш список задач пуст</p> `;
-  }
+  // if (tasks.length === 0) {
+  //   tasksWrapper.innerHTML = `<p>Ваш список задач пуст</p> `;
+  // }
 
-  tasks.forEach((item, i) => {
-    tasksWrapper.innerHTML += `
-      <div class="task ${item.checked ? 'task-completed' : ''}">
-        <div>${item.text}</div>
-        <div class="btns">
-          <input class="checkbox" id='${i}' type="checkbox" ${item.checked && 'checked'} />
-          <img
-          id='${i}-delete'
-            class="delete-btn"
-            src="https://img.icons8.com/office/16/000000/delete-sign.png"
-          />
+  fetch('https://617563c608834f0017c70bcb.mockapi.io/api/todo/tasks')
+    .then((response) => response.json())
+    .then((commits) => {
+      tasks = [...commits];
+      commits.forEach((item, i) => {
+        tasksWrapper.innerHTML += `
+        <div class="task ${item.completed ? 'task-completed' : ''}">
+          <div>${item.text}</div>
+          <div class="btns">
+            <input class="checkbox" id='${item.id}' type="checkbox" ${
+          item.completed && 'checked'
+        } />
+            <img
+            id='${item.id}'
+              class="delete-btn"
+              src="https://img.icons8.com/office/16/000000/delete-sign.png"
+            />
+          </div>
         </div>
-      </div>
-      `;
-  });
+        `;
+      });
+      console.log(tasks);
+    });
   inpText.value = '';
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+  // localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 tasksWrapper.addEventListener('click', (e) => {
   if (e.target.type === 'checkbox') {
-    tasks[e.target.id].checked = !tasks[e.target.id].checked;
-    showTasks();
+    let task = { ...tasks[e.target.id - 1], completed: !tasks[e.target.id - 1].completed };
+    console.log(task);
+    fetch(`https://617563c608834f0017c70bcb.mockapi.io/api/todo/tasks/${e.target.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(task),
+    }).then(() => showTasks());
   } else if (e.target.classList[0] === 'delete-btn') {
-    tasks.splice(e.target.id.split('-')[0], 1);
-    showTasks();
+    fetch(`https://617563c608834f0017c70bcb.mockapi.io/api/todo/tasks/${e.target.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    }).then(() => showTasks());
+
+    // tasks.splice(e.target.id.split('-')[0], 1);
   }
 });
