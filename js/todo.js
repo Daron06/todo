@@ -17,6 +17,9 @@ addTaskBtn.addEventListener('click', () => {
 
 function showTasks() {
   tasksWrapper.innerHTML = '';
+  if (tasks.length === 0) {
+    tasksWrapper.innerHTML = `<p>Ваш список задач пуст</p> `;
+  }
 
   tasks.forEach((item, i) => {
     tasksWrapper.innerHTML += `
