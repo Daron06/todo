@@ -3,7 +3,7 @@ let inpText = document.querySelector('#inp');
 let tasksWrapper = document.querySelector('.tasks');
 
 let tasks = localStorage.tasks ? JSON.parse(localStorage.getItem('tasks')) : [];
-!!tasks.length && showTasks();
+showTasks();
 
 addTaskBtn.addEventListener('click', () => {
   let task = {
@@ -11,7 +11,11 @@ addTaskBtn.addEventListener('click', () => {
     checked: false,
   };
 
+<<<<<<< HEAD
   if (inpText.value === '') {
+=======
+  if (inpText.value == '') {
+>>>>>>> main
     return;
   }
 
