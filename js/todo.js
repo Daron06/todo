@@ -11,7 +11,11 @@ addTaskBtn.addEventListener('click', () => {
     checked: false,
   };
 
+<<<<<<< HEAD
+  if (inpText.value === '') {
+=======
   if (inpText.value == '') {
+>>>>>>> main
     return;
   }
 
@@ -40,7 +44,7 @@ function showTasks() {
       </div>
       `;
   });
-
+  inpText.value = '';
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
